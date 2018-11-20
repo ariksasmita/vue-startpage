@@ -2,17 +2,36 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Backdrop :weather="weather" :imageUrl="imageUrl"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld'
+import Backdrop from './components/Backdrop'
+
+import getUnsplashImage from './api/unsplash'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+    Backdrop,
+  },
+  data() {
+    return {
+      weather: 'rain outdoor',
+      imageUrl: '',
+    }
+  },
+  methods: {
+    getImageUrlFromApi: async function () {
+      this.imageUrl = await getUnsplashImage(this.weather)
+    },
+  },
+  mounted () {
+    this.getImageUrlFromApi()
+  },
 }
 </script>
 
