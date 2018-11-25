@@ -8,7 +8,10 @@
 <script>
 export default {
   name: 'Backdrop',
-  props: ['weather', 'imageUrl'],
+  props: {
+    weather: String,
+    imageUrl: String,
+  },
   computed: {
     parsedImageUrl: function() {
       return `url('${this.imageUrl}')`
